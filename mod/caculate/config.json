@@ -1,0 +1,30 @@
+{
+	"name":"calculate",
+	"autoload":{
+	},
+	"node":{
+		"与门":"/node/chat_node_and.gd",
+		"或门":"/node/chat_node_or.gd",
+		"非门":"/node/chat_node_not.gd",
+		"字典字符串转换器":"/node/chat_node_dic_to_str.gd",
+		"字符串连接器":"/node/chat_node_str_connect.gd",
+		"字符串判定器":"/node/chat_node_str_judge.gd",
+		"字符串输出器":"/node/chat_node_str_output.gd",
+		"字符串数字转换器":"/node/chat_node_str_to_float.gd",
+		"正则匹配器":"/node/chat_node_regex.gd",
+		"数字加法器":"/node/chat_node_float_add.gd",
+		"静态数字加法器":"/node/chat_node_float_add_static.gd",
+		"向下取整器":"/node/chat_node_float_celi.gd",
+		"数字比较器":"/node/chat_node_float_compare.gd",
+		"静态数字比较器":"/node/chat_node_float_compare_static.gd",
+		"数字乘法器":"/node/chat_node_float_multi.gd",
+		"静态数字乘法器":"/node/chat_node_float_multi_static.gd",
+		"数字输出器":"/node/chat_node_float_output.gd",
+		"随机数生成器":"/node/chat_node_float_random.gd",
+		"数字字符串转换器":"/node/chat_node_float_to_str.gd",
+		
+	},
+	"depend":[],
+	"name_view":"基础计算",
+	"i":"最基础的计算组件，包含了基础的计算节点。",
+}

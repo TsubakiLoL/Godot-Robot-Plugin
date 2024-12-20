@@ -1,0 +1,14 @@
+{
+	"name":"basemod",
+	"autoload":{
+	},
+	"node":{
+		"状态节点":"/node/chat_node_state.gd",
+		"触发器节点":"/node/chat_node_triger.gd",
+		"状态转换器":"/node/chat_node_change_state.gd",
+
+	},
+	"depend":[],
+	"name_view":"基础模块",
+	"i":"最基础的模块部分，包含了基础的状态管理和转换节点。",
+}

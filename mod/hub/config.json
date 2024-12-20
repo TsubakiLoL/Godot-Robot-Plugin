@@ -1,0 +1,13 @@
+{
+	"name":"hub",
+	"autoload":{
+	},
+	"node":{
+		"字典集线器":"/node/chat_node_dic_hub.gd",
+		"数字集线器":"/node/chat_node_float_hub.gd",
+		
+	},
+	"depend":[],
+	"name_view":"集线器",
+	"i":"集线器集合，使数据更加易读。",
+}
