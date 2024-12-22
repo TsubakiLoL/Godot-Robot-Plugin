@@ -13,6 +13,7 @@
 		"私聊信息发送器":"/node/chat_node_sent_side_message.gd",
 		"多输入私聊信息发送器":"/node/chat_node_sent_side_message_multi_input.gd",
 		"静态私聊信息发送器":"/node/chat_node_sent_side_message_static.gd",
+		"蔷薇点赞器":"/node/chat_node_like.gd",
 		"蔷薇消息内容提取器":"/node/chat_node_iirose_message_process.gd",
 	},
 	"triger":{
