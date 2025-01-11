@@ -18,11 +18,12 @@ func _ready() -> void:
 	else:
 		f.close()
 		load_account()
-	print(get_iirose())
+	#连接信号
 	$MarginContainer/Control/login.pressed.connect(_on_login_request)
-	
-	ModLoader.get_autoload("iirose").login_success.connect(set_color.bind(Color.GREEN))
+	#连接单路的信号
+	ModLoader.get_autoload("iirose/iirose").login_success.connect(set_color.bind(Color.GREEN))
 func load_account():
+	#从硬盘加载保存的账户信息
 	var f=FileAccess.open(account_file,FileAccess.READ)
 	if f!=null:
 		var txt=f.get_as_text()
@@ -33,9 +34,9 @@ func load_account():
 			$MarginContainer/Control/room.text=res[2]
 	pass
 
-
+#获取蔷薇加载的单例
 func get_iirose():
-	return ModLoader.get_autoload("iirose")
+	return ModLoader.get_autoload("iirose/iirose")
 
 
 func _on_login_request():
@@ -50,6 +51,7 @@ func _on_login_request():
 	
 	pass
 
+##保存文本
 func save_account(n:String,p:String,r:String):
 	var f=FileAccess.open(account_file,FileAccess.WRITE)
 	if f!=null:

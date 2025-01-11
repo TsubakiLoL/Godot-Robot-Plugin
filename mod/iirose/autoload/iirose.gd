@@ -13,7 +13,6 @@ extends Node
 @export var buffer_size:int=1048560*8
 var ws =WebSocketPeer.new()
 var last_state = WebSocketPeer.STATE_CLOSED
-#var uid_list:Array[String]=[]
 var stock_message=[0,0,0]  #总股数，总金，单股价格
 #房间信息缓存
 var room_message_cache:Array=[]
@@ -139,7 +138,7 @@ func _on_ping_timeout() -> void:
 
 func exe_message(txt:String):
 	var dic:Array=[]
-	if txt.begins_with('%*"'):
+	if txt.begins_with('%*"'): 			#"#注释
 		match txt[3]:
 			"*":
 				if not is_login:
@@ -148,12 +147,6 @@ func exe_message(txt:String):
 						debug_message.emit("[color=green]》》》》登录成功！[/color]")
 					is_login=true
 					login_success.emit()
-				#var spl=txt.split("<")
-				#for i  in range(1,spl.size()) :
-					##print(spl)
-					#var new_spl=spl[i].split(">")
-					#if new_spl.size()>=9:
-						#uid_list.append(new_spl[8])D
 			"s":
 				if not is_login:
 					if need_debug_message:
@@ -226,37 +219,6 @@ func exe_message(txt:String):
 				is_in_logging=false
 				Toast.popup("房间错误")
 				ws.close()
-				pass
-		#if txt.begins_with('%*"*'):
-			#if not is_login:
-				#print_rich("[color=green]》》》》登录成功！[/color]")
-				#debug_message.emit("[color=green]》》》》登录成功！[/color]")
-				#is_login=true
-				#login_success.emit()
-			#var spl=txt.split("<")
-			#for i  in range(1,spl.size()) :
-				##print(spl)
-				#var new_spl=spl[i].split(">")
-				#if new_spl.size()>=9:
-					#uid_list.append(new_spl[8])
-		#elif txt.begins_with('%*"s'):
-			#if not is_login:
-				#print_rich("[color=yellow]》》》》房间错误，尝试断开与新房间重新建立链接。。。[/color]")
-				#debug_message.emit("[color=yellow]》》》》房间错误，尝试断开与新房间重新建立链接。。。[/color]")
-				#var new_room=txt.split(">")[0]
-				#new_room=new_room.right(new_room.length()-4)
-				#inpackeg["r"]=new_room
-				#ws.close()
-				#
-		#elif txt.begins_with('%*"6'):
-			#print_rich("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
-			#debug_message.emit("[color=red]》》》》房间错误，请重新输入房间信息[/color]")
-			#is_in_logging=false
-			#ws.close()
-			#ws=null
-		#
-		#else:
-			#print(txt)
 	elif txt.begins_with('"'):
 		
 		var new_text=txt.right(txt.length()-1)
@@ -324,7 +286,7 @@ func exe_message(txt:String):
 		if need_debug_message:
 			print_rich("[color=teal]《《《《股票消息：[/color]"+new_text)
 			debug_message.emit("[color=teal]《《《《股票消息：[/color]"+new_text)
-		var spl=new_text.split('"')
+		var spl=new_text.split('"') #"#抱歉这里就先用注释顶一下了，高亮文本有错误
 		stock_message[0]=int(spl[0])
 		stock_message[1]=float(spl[1])
 		stock_message[2]=float(spl[2])
@@ -386,7 +348,7 @@ func connected():
 func closed(res:Array):
 	if is_in_logging:
 		is_login=false
-		ws.connect_to_url("wss://m1.iirose.com:8778",TLSOptions.client())
+		ws.connect_to_url("ws://m1.iirose.com:8777",TLSOptions.client())
 		if need_debug_message:
 			print_rich("[color=red]》》》》断开链接[/color]")
 			debug_message.emit("[color=red]》》》》断开链接[/color]")
@@ -493,4 +455,3 @@ func _on_side_message_received(arr:Array) -> void:
 		var id:String=i["name"]
 		if id!=get_self_name():
 			PromptMessageControler.prompt(id,"iirose_triger_side",i)
-	pass # Replace with function body.

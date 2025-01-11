@@ -26,3 +26,5 @@ func load_from_data(data:Dictionary):
 func export_data(data:Dictionary):
 	super.export_data(data)
 	data["mes"]=mes
+
+

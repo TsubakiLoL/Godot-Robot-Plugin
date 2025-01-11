@@ -2,7 +2,6 @@ extends ChatNode
 var mes:String=""
 func _init(root:NodeRoot) -> void:
 	super._init(root)
-	type=8
 	variable_name_array=["mes"]
 	variable_type_array=[ChatNode.variable_type.TYPE_STRING]
 	variable_type_more=[]

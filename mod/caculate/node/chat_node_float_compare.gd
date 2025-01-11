@@ -9,7 +9,6 @@ enum compare_type{
 var c_type:compare_type=compare_type.TYPE_MORE
 func _init(root:NodeRoot) -> void:
 	super._init(root)
-	type=27
 	variable_name_array=["c_type"]
 	variable_type_array=[ChatNode.variable_type.TYPE_SELECT]
 	variable_type_more=[[[0,1,2,3,4],[">","=","<",">=","<="]]]

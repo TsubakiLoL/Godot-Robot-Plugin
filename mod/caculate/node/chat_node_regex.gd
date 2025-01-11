@@ -7,7 +7,6 @@ var regex_string:String="":
 var regex=RegEx.new()
 func _init(root:NodeRoot) -> void:
 	super._init(root)
-	type=17
 	variable_name_array=["regex_string"]
 	variable_type_array=[ChatNode.variable_type.TYPE_STRING]
 	variable_name_view=["正则表达式"]

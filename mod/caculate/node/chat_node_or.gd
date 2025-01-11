@@ -2,7 +2,6 @@ extends ChatNode
 ##或门节点，输入为两个Bool类型，输出两个输入的bool类型的或运算结果，为bool
 func _init(root:NodeRoot) -> void:
 	super._init(root)
-	type=11
 	input_port_array=["Bool","Bool"]
 	output_port_array=["Bool"]
 	init_input()

@@ -3,7 +3,6 @@ extends ChatNode
 var variable_name:String=""
 func _init(root:NodeRoot) -> void:
 	super._init(root)
-	type=6
 	input_port_array=["Dictionary"]
 	variable_name_array=["variable_name"]
 	variable_type_array=[ChatNode.variable_type.TYPE_STRING]

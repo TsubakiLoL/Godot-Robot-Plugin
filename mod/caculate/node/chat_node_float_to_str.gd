@@ -2,7 +2,6 @@ extends ChatNode
 
 func _init(root:NodeRoot) -> void:
 	super._init(root)
-	type=22
 	input_port_array=["Float"]
 	output_port_array=["String"]
 	init_input()
