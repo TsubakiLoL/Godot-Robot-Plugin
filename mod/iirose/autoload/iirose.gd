@@ -91,6 +91,7 @@ func send_in_pack():
 			print_rich("[color=red]》》》》错误：还未与蔷薇建立链接或链接已断开[/color]")
 			debug_message.emit("[color=red]》》》》错误：还未与蔷薇建立链接或链接已断开[/color]")
 func _ready() -> void:
+	print("hello IIROSE!aaaaaa")
 	set_buffer_size(buffer_size)
 	ping_timer=Timer.new()
 	add_child(ping_timer)
@@ -233,7 +234,7 @@ func exe_message(txt:String):
 				var new_dic={}
 				var spl=i.split(">")
 				new_dic["name"]=spl[2]
-				new_dic["message"]=spl[4]
+				new_dic["message"]=use_escape(spl[4])
 				new_dic["head"]=spl[3]
 				new_dic["uid"]=spl[1]
 				side_dic_array.append(new_dic)
@@ -252,7 +253,7 @@ func exe_message(txt:String):
 				var new_dic={}
 				var spl=i.split(">")
 				new_dic["name"]=spl[2]
-				new_dic["message"]=spl[3]
+				new_dic["message"]=use_escape(spl[3])
 				new_dic["head"]=spl[1]
 				new_dic["uid"]=spl[8]
 				room_dic_array.append(new_dic)
@@ -272,7 +273,7 @@ func exe_message(txt:String):
 			var new_dic={}
 			var spl=i.split(">")
 			new_dic["name"]=spl[0]
-			new_dic["message"]=spl[1]
+			new_dic["message"]=use_escape(spl[1])
 			new_dic["head"]=spl[5]
 			new_dic["uid"]=spl[7]
 			bullet_dic_array.append(new_dic)
@@ -455,3 +456,174 @@ func _on_side_message_received(arr:Array) -> void:
 		var id:String=i["name"]
 		if id!=get_self_name():
 			PromptMessageControler.prompt(id,"iirose_triger_side",i)
+			
+			
+
+#转义字典
+const escape_library:Dictionary={
+	"&amp;":"&",
+	"&quot;":'"',#"
+	"&lt;":"<",
+	"&gt;":">",
+	"&nbsp;":" ",
+	"&iexcl;":"?",
+	"&cent;":"￠",
+	"&pound;":"￡",
+	"&curren;":"¤",
+	"&yen;":"￥",
+	"&brvbar;":"|",
+	"§":"&sect;",
+	"&uml;":"¨",
+	"&copy;":"©",
+	"&ordf;":"a",
+	"&laquo;":"?",
+	"&not;":"?",
+	"&shy;":"/x7f",
+	"&reg;":"®",
+	"&macr;":"ˉ",
+	"&deg;":"°",
+	"&plusmn;":"±",
+	"&sup2;":"2",
+	"&sup3;":"3",
+	"&acute;":"′",
+	"&micro;":"μ",
+	"&para;":"?",
+	"&middot;":"·",
+	"&cedil;":"?",
+	"&sup1;":"1",
+	"&ordm;":"o",
+	"&raquo;":"?",
+	"&frac14;":"?",
+	"&frac12;":"?",
+	"&frac34;":"?",
+	"&iquest;":"?",
+	"&Agrave;":"À",
+	"&Aacute;":"Á",
+	"&circ;":"Â",
+	"&Atilde;":"Ã",
+	"&Auml":"Ä",
+	"&ring;":"Å",
+	"&AElig;":"Æ",
+	"&Ccedil;":"Ç",
+	"&Egrave;":"È",
+	"&Eacute;":"É",
+	"&Ecirc;":"Ê",
+	"&Euml;":"Ë",
+	"&Igrave;":"Ì",
+	"&Iacute;":"Í",
+	"&Icirc;":"Î",
+	"&Iuml;":"Ï",
+	"&ETH;":"Ð",
+	"&Ntilde;":"Ñ",
+	"&Ograve;":"Ò",
+	"&Oacute;":"Ó",
+	"&Ocirc;":"Ô",
+	"&Otilde;":"Õ",
+	"&Ouml;":"Ö",
+	"&times;":"&times;",
+	"&Oslash;":"Ø",
+	"&Ugrave;":"Ù",
+	"&Uacute;":"Ú",
+	"&Ucirc;":"Û",
+	"&Uuml;":"Ü",
+	"&Yacute;":"Ý",
+	"&THORN;":"Þ",
+	"&szlig;":"ß",
+	"&agrave;":"à",
+	"&aacute;":"á",
+	"&acirc;":"â",
+	"&atilde;":"ã",
+	"&auml;":"ä",
+	"&aring;":"å",
+	"&aelig;":"æ",
+	"&ccedil;":"ç",
+	"&egrave;":"è",
+	"&eacute;":"é",
+	"&ecirc;":"ê",
+	"&euml;":"ë",
+	"&igrave;":"ì",
+	"&iacute;":"í",
+	"&icirc;":"î",
+	"&iuml;":"ï",
+	"&ieth;":"ð",
+	"&ntilde;":"ñ",
+	"&ograve;":"ò",
+	"&oacute;":"ó",
+	"&ocirc;":"ô",
+	"&otilde;":"õ",
+	"&ouml;":"ö",
+	"&divide;":"÷",
+	"&oslash;":"ø",
+	"&ugrave;":"ù",
+	"&uacute;":"ú",
+	"&ucirc;":"û",
+	"&uuml;":"ü",
+	"&yacute;":"ý",
+	"&thorn;":"þ",
+	"&yuml;":"ÿ",	
+}
+
+var regex:RegEx=RegEx.create_from_string("(?<escape>&[^&^;]+;)")
+
+#获取原始文本
+func use_escape(text:String)->String:
+	var str=text
+	#输入栈
+	var input_stack:PackedStringArray=str.split("")
+	#print(input_stack)
+	#输出栈
+	var output_stack:PackedStringArray=PackedStringArray([])
+	
+	#转义计数
+	var cacul_num:int=0
+	#是否读取头
+	var is_in_cacul:bool=false
+	var i:int=0
+	while i<input_stack.size():
+		var input_character:String=input_stack[i]
+		#推入栈
+		output_stack.append(input_character)
+		match input_character:
+			"&":
+				is_in_cacul=true
+				cacul_num=1
+				pass
+			
+			";":
+				if is_in_cacul:
+					is_in_cacul=false
+					cacul_num+=1
+					#起始下标
+					var start_index=i-cacul_num+1
+					#结束下标
+					var end_index=i
+					#获取得到的匹配字符
+					var cacul_character:String=""
+					var x:int=start_index
+					while x<=end_index:
+						cacul_character=cacul_character+input_stack[x]
+						x+=1
+					#print("获取到字符："+cacul_character)
+					#监测库中是否存在此字符
+					if escape_library.has(cacul_character):
+						
+						#如果存在，弹出匹配转义栈
+						var y:int=0
+						while y<cacul_num:
+							output_stack.remove_at(output_stack.size()-1)
+							y+=1
+						output_stack.append(escape_library[cacul_character])
+				else:
+					pass
+				is_in_cacul=false
+				cacul_num=0
+			_:
+				if is_in_cacul:
+					cacul_num+=1
+				pass
+		i+=1
+	var out_str:String=""
+	for z in output_stack:
+		out_str+=z
+	return out_str
+

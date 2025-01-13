@@ -1,0 +1,1 @@
+{"autoload":{"autoload":"/example_autoload/autoload.gd"},"i":"使用指令管理并添加词库的插件","name":"thesaurus","name_view":"词库","node":{"词库匹配器":"/example_node/chat_node_word_match.gd","词库添加器":"/example_node/chat_node_word_add.gd","词库预览器":"/example_node/chat_node_word_view.gd"},"panel":{},"triger":{}}

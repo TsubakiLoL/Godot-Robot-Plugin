@@ -8,7 +8,7 @@ func _init(root:NodeRoot) -> void:
 
 func process_input(id:String)->bool:
 	if input_port_data[0] is String:
-		ModLoader.get_autoload("iirose").sent_side_message(input_port_data[0])
+		ModLoader.get_autoload("iirose/iirose").sent_side_message(input_port_data[0])
 		return true
 	else:
 		return false
